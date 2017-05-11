@@ -1,0 +1,93 @@
+spring:
+  application:
+    name: auth-server
+  profiles:
+    active:  docker
+
+server:
+  #port: 9080
+  port: ${authserverPort}
+  contextPath: /tr
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    
+com:
+  traderocket:
+    authserver:
+      config:
+        #driverClassName: com.mysql.jdbc.Driver
+        driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+        databaseDialect: org.hibernate.dialect.SQLServerDialect
+        url: "jdbc:sqlserver://localhost;databaseName=gemini_dev3"
+        port: 3306
+        databaseName: "/Import_mssql.sql"
+        userName: root
+        password: password
+        clients: "{\"traderocket\":\"/login\",\"pemex\":\"/login_pemex\",\"hitachi\":\"/login_hitachi\"}"
+        defaultLoginUrl: "/login"
+        customers:
+          traderocket: login
+          pemex: login_pemex
+          default: login
+        authentication:
+          maxSessions: 0
+          tokenValidityPeriod: 1800000
+          supportedGrantTypes: authorization_code,password,client_credentials
+eureka:
+  client:
+    serviceUrl:
+      #defaultZone: http://user:password@localhost:8761/eureka/
+      defaultZone: ${registryServerBaseUrl}/eureka/
+        
+include:
+  # this is to enable the in-memory database authentication provider using h2 
+  test:
+    users: false
+  # this is to enable spring default implementation database authentication provider using mysql database
+  defaultDb:
+    users: false
+  # this is to enable the production ready database authentication provider using sql server database
+  db:
+    users: true
+  # this is ldap implementation authentication provider
+  ldap:
+    users: false
+        
+ldap:
+  ldapUrl: ldap://127.0.0.1:10389/dc=example,dc=com
+  bindPW: 
+  groupSearchBase: dc=groups
+  groupSearchFilter: (uniqueMember={0})
+  userDnPattern: uid={0},dc=people
+  groupRoleAttribute: cn
+  #this seems does not work the way of the design.  It only adds whatever you put into this field.  If you put A in this filed
+  #it will make the role to be ROLE_Axxxx.
+  rolePrefix: ROLE_
+  enable2FA: true
+  secretAttributeName: displayName
+  tfaAttributeName: carLicense
+  passwordAttributeName: userPassword
+
+---
+
+spring:
+  profiles: docker
+
+com:
+  traderocket:
+    authserver:
+      config:
+        password: password
+        
+---
+
+spring:
+  profiles: local
+  
+com:
+  traderocket:
+    authserver:
+      config:
+        password: password
