@@ -25,7 +25,7 @@ security:
       access-token-validity-seconds: 1800000
       #added on 4/26/2017
       pre-established-redirect-uri: ${webPortalRootUrl}/traderocket/login
-      registered-redirect-uri: ${authRootUrl}/tr/login1
+      registered-redirect-uri: ${authRootUrl}/tr/login
       use-current-uri: false
     resource:
       jwt:
