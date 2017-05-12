@@ -62,9 +62,9 @@ zuul:
     #authorize:
       #path: /oauth/authorize/**
       #url: http://localhost:9080/tr/oauth/authorize
-    login:
-      path: /login/**
-      url: ${authRootUrl}/tr/login
+    #login:
+      #path: /login/**
+      #url: ${authRootUrl}/tr/login
 
 eureka:
   client:
