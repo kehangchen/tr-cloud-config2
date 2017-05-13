@@ -15,8 +15,8 @@ angular.module('gemini')
     // following is for instance running aws
     //NODE_RED_URL: 'http://35.163.222.131:8880'
     // following is for instance running in localhost
-    NODE_RED_URL: 'http://localhost:1880'
+    //NODE_RED_URL: 'http://localhost:1880'
     //NODE_RED_URL: '[[${noderedRootUrl}]]'
     // following is for instance running in AWS with SSL
-    //NODE_RED_URL: 'https://flow-dev.traderocket.io'
+    NODE_RED_URL: 'https://flow-dev.traderocket.io'
   });
